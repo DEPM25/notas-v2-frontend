@@ -1,0 +1,454 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Tema Claro - Omega */
+  --background: #f8f8f8;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #a08948;
+  --primary-foreground: #ffffff;
+  --secondary: #e5e5e5;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f0f0f0;
+  --muted-foreground: #6b6b6b;
+  --accent: #a08948;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: #d4d4d4;
+  --input: #e5e5e5;
+  --ring: #a08948;
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Colores Omega - Menos brillantes */
+  --omega-gold: #a08948;
+  --omega-gold-light: #b89d5c;
+  --omega-gold-dark: #8a7540;
+  --omega-black: #1a1a1a;
+  --omega-charcoal: #2a2a2a;
+  --omega-gray: #4a4a4a;
+  --omega-silver: #9a9a9a;
+  --omega-white: #f8f8f8;
+}
+
+.dark {
+  /* Tema Oscuro - Omega */
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+  --card: #1a1a1a;
+  --card-foreground: #f5f5f5;
+  --popover: #1a1a1a;
+  --popover-foreground: #f5f5f5;
+  --primary: #a08948;
+  --primary-foreground: #0a0a0a;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #f5f5f5;
+  --muted: #2a2a2a;
+  --muted-foreground: #9a9a9a;
+  --accent: #a08948;
+  --accent-foreground: #0a0a0a;
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: #3a3a3a;
+  --input: #2a2a2a;
+  --ring: #a08948;
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+
+  --color-omega-gold: var(--omega-gold);
+  --color-omega-gold-light: var(--omega-gold-light);
+  --color-omega-gold-dark: var(--omega-gold-dark);
+  --color-omega-black: var(--omega-black);
+  --color-omega-charcoal: var(--omega-charcoal);
+  --color-omega-gray: var(--omega-gray);
+  --color-omega-silver: var(--omega-silver);
+  --color-omega-white: var(--omega-white);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Gradiente animado de fondo */
+  @keyframes gradientShift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animated-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--background) 0%,
+      var(--card) 25%,
+      var(--muted) 50%,
+      var(--card) 75%,
+      var(--background) 100%
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    opacity: 1;
+  }
+
+  /* Partículas flotantes */
+  @keyframes floatParticle {
+    0% {
+      transform: translateY(100vh) translateX(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100vh) translateX(100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, var(--omega-gold) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: floatParticle linear infinite;
+    box-shadow: 0 0 8px var(--omega-gold);
+  }
+
+  /* Páginas de libros flotando */
+  @keyframes floatPage {
+    0% {
+      transform: translateY(100vh) rotateX(0deg) rotateZ(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateY(50vh) rotateX(180deg) rotateZ(180deg);
+      opacity: 0.7;
+    }
+    90% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-20vh) rotateX(360deg) rotateZ(360deg);
+      opacity: 0;
+    }
+  }
+
+  .floating-page {
+    position: absolute;
+    width: 40px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--card) 0%, var(--muted) 100%);
+    border-radius: 2px;
+    border: 1px solid var(--omega-gold);
+    box-shadow: 0 2px 8px rgba(160, 137, 72, 0.2), inset 0 1px 0 rgba(160, 137, 72, 0.15);
+    animation: floatPage linear infinite;
+    opacity: 0;
+  }
+
+  .floating-page::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    right: 6px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--omega-gold) 0%, transparent 100%);
+    border-radius: 1px;
+  }
+
+  .floating-page::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 6px;
+    right: 10px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--omega-gold-light) 0%, transparent 100%);
+    border-radius: 1px;
+  }
+
+  /* Círculos de conocimiento con efecto de onda */
+  @keyframes pulseKnowledge {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+  }
+
+  .knowledge-circle {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--omega-gold);
+    border-radius: 50%;
+    animation: pulseKnowledge 6s ease-in-out infinite;
+  }
+
+  .knowledge-circle::before {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    border: 2px solid var(--omega-gold-light);
+    border-radius: 50%;
+    animation: pulseKnowledge 6s ease-in-out infinite 1s;
+  }
+
+  .knowledge-circle::after {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    border: 2px solid var(--omega-gold-dark);
+    border-radius: 50%;
+    animation: pulseKnowledge 6s ease-in-out infinite 2s;
+  }
+
+  /* Estrellas de logros */
+  @keyframes twinkleStar {
+    0%,
+    100% {
+      transform: scale(0) rotate(0deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1) rotate(180deg);
+      opacity: 1;
+    }
+  }
+
+  .achievement-star {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    animation: twinkleStar 4s ease-in-out infinite;
+  }
+
+  .achievement-star::before,
+  .achievement-star::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--omega-gold), transparent);
+    transform: translate(-50%, -50%);
+  }
+
+  .achievement-star::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  /* Patrón de cuadrícula */
+  .grid-overlay {
+    background-image: linear-gradient(rgba(160, 137, 72, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(160, 137, 72, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 50px 50px;
+    }
+  }
+
+  /* Libros flotantes */
+  @keyframes floatBook {
+    0% {
+      transform: translateY(100vh) rotateY(0deg) rotateZ(-10deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(50vh) rotateY(180deg) rotateZ(10deg);
+      opacity: 0.8;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(-20vh) rotateY(360deg) rotateZ(-10deg);
+      opacity: 0;
+    }
+  }
+
+  .floating-book {
+    position: absolute;
+    width: 50px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--card) 0%, var(--muted) 100%);
+    border-radius: 4px;
+    border: 1px solid var(--omega-gold);
+    box-shadow: 0 4px 12px rgba(160, 137, 72, 0.3), inset -2px 0 4px rgba(160, 137, 72, 0.15), inset 2px 0 4px
+      rgba(0, 0, 0, 0.2);
+    animation: floatBook linear infinite;
+    opacity: 0;
+  }
+
+  .floating-book::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--omega-gold) 0%, var(--omega-gold-dark) 100%);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .floating-book::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    right: 10px;
+    height: 3px;
+    background: rgba(160, 137, 72, 0.3);
+    border-radius: 1px;
+    box-shadow: 0 8px 0 rgba(160, 137, 72, 0.25), 0 16px 0 rgba(160, 137, 72, 0.25);
+  }
+
+  /* Lápices flotantes */
+  @keyframes floatPencil {
+    0% {
+      transform: translateY(100vh) translateX(0) rotate(45deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(50vh) translateX(50px) rotate(225deg);
+      opacity: 0.9;
+    }
+    90% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-20vh) translateX(-30px) rotate(405deg);
+      opacity: 0;
+    }
+  }
+
+  .floating-pencil {
+    position: absolute;
+    width: 8px;
+    height: 80px;
+    background: linear-gradient(180deg, var(--omega-gold) 0%, var(--omega-gold-dark) 70%, #6b5d30 100%);
+    border-radius: 4px 4px 0 0;
+    animation: floatPencil linear infinite;
+    opacity: 0;
+    box-shadow: 0 2px 8px rgba(160, 137, 72, 0.3);
+  }
+
+  .floating-pencil::before {
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 12px solid var(--omega-charcoal);
+  }
+
+  .floating-pencil::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: linear-gradient(135deg, var(--card) 0%, var(--muted) 50%, var(--secondary) 100%);
+    border-radius: 4px 4px 0 0;
+  }
+}
